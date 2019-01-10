@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<title>The Annotated Go Program</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<style>
+.keyword {
+    color: blue;
+}
+.string {
+    color: brown;
+}
+code {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+}
+.font {
+    font-size: 1.2em;
+}
+.tip:hover {
+    background: silver;
+}
+p.help {
+    margin-top: 20px;
+}
+</style>
+    </head>
+    <body>
+	<div class="container">
+	    <div class="row">
+		<div class="col">
+		    <h1>Annotated Go Program</h1>
+		    <hr/>
+		</div>
+	    </div>
+	    <div class="row">
+		<div class="col">
+	<pre><code class="font">
+<span class="keyword tip" id="pkg">package</span> main
+
+<span class="keyword">import</span> (
+	<span class="string">"fmt"</span>
+)
+
+<span class="keyword">func</span> main() {
+	fmt.Println(<span class="string">"Hello Gophers!"</span>)
+}
+	</code></pre>
+		</div>
+		<div class="col">
+		    <p id="help" class="font help">
+		    </p>
+		</div>
+	    </div>
+	</div>
+    </body>
+    <script>
+$(function() {
+    $('#pkg').click(function() {
+	$('#help').text(doc['pkg']);
+    });
+});
+
+var doc = {
+    'pkg': `
+PKG is where we
+`
+};
+    </script>
+</html>
