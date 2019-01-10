@@ -43,12 +43,12 @@ p.help {
 	<pre><code class="font">
 <span class="keyword tip" id="pkg">package</span> main
 
-<span class="keyword">import</span> (
-	<span class="string">"fmt"</span>
+<span class="keyword tip" id="imp">import</span> (
+	<span class="string tip">"fmt"</span>
 )
 
-<span class="keyword">func</span> main() {
-	fmt.Println(<span class="string">"Hello Gophers!"</span>)
+<span class="keyword tip" id="func">func</span> main() {
+	<span class="tip" id="pkg-use">fmt</span>.<span class="tip" id="println">Println</span>(<span class="string tip" id="string">"Hello Gophers!"</span>)
 }
 	</code></pre>
 		</div>
@@ -57,19 +57,36 @@ p.help {
 		    </p>
 		</div>
 	    </div>
+	    <div class="row">
+		<div class="col">
+		    <hr />
+		    <code><pre class="font">
+$ <span class="tip" id="go">go</span> <span class="tip" id="run">run</span> <span class="tip" id="ext">hw.go</span>
+Hello Gophers!
+		    </pre></code>
+		</div>
+	    </div>
 	</div>
     </body>
     <script>
 $(function() {
-    $('#pkg').click(function() {
-	$('#help').text(doc['pkg']);
+    $('.tip').click(function() {
+	var id = $(this).attr('id');
+	$('#help').text(doc[id]);
     });
 });
 
 var doc = {
-    'pkg': `
+'pkg':`
 PKG is where we
-`
+`,
+'imp':`
+IMP is here
+`,
+'run': `
+RUN
+`,
+
 };
     </script>
 </html>
