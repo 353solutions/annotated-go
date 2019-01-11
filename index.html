@@ -5,6 +5,8 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -26,6 +28,9 @@ code {
 .tip:hover {
     background: silver;
 }
+.marked {
+    background: silver;
+}
 p.help {
     margin-top: 20px;
 }
@@ -34,8 +39,17 @@ p.help {
     <body>
 	<div class="container">
 	    <div class="row">
-		<div class="col">
+		<div class="col col-10">
 		    <h1>Annotated Go Program</h1>
+		</div>
+		<div class="col float-right">
+		    <br />
+		    <i id="help-btn" class="far fa-question-circle"></i> |
+		    <input type="checkbox" id="highlight"></input> Highlight all
+		</div>
+	    </div>
+	    <div class="row">
+		<div class="col">
 		    <hr/>
 		</div>
 	    </div>
@@ -76,6 +90,17 @@ $(function() {
 	$('#help').html('<p>' + doc[id] + '</p>');
 	$('a').attr('target', '_blank');
     });
+    $('#help-btn').click(function(){
+	$('#help').html(initial_help);
+    });
+    $('#highlight').change(function() {
+	if ($('#highlight').prop('checked')) {
+	    $('.tip').addClass('marked');
+	} else {
+	    $('.tip').removeClass('marked');
+	}
+    });
+    $('#help-btn').click();
 });
 
 var doc = {
@@ -168,5 +193,10 @@ Several <code>.go</code> files can be in the same directory and construct the
 same package.
 `,
 };
+var initial_help = `
+This is an annoated "hello world" <a href="https://golang.org/">Go</a> program.
+Hover around the code, then click on highlighted words. You can use the
+checkbox on the top to highlight all.
+`;
     </script>
 </html>
