@@ -2,6 +2,7 @@
 <html>
     <head>
 	<title>The Annotated Go Program</title>
+	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 <script
@@ -41,14 +42,14 @@ p.help {
 	    <div class="row">
 		<div class="col">
 	<pre><code class="font">
-<span class="keyword tip" id="pkg">package</span> main
+<span class="keyword tip" id="pkg">package</span> <span class="tip" id="main">main</span>
 
 <span class="keyword tip" id="imp">import</span> (
-	<span class="string tip">"fmt"</span>
+	<span class="string tip" id="fmt">"fmt"</span>
 )
 
-<span class="keyword tip" id="func">func</span> main() {
-	<span class="tip" id="pkg-use">fmt</span>.<span class="tip" id="println">Println</span>(<span class="string tip" id="string">"Hello Gophers!"</span>)
+<span class="keyword tip" id="func">func</span> <span class="tip" id="mainfn">main</span>() {
+	<span class="tip" id="pkg-use">fmt</span>.<span class="tip" id="println">Println</span>(<span class="string tip" id="string">"Hello Gophers ☺"</span>)
 }
 	</code></pre>
 		</div>
@@ -72,21 +73,100 @@ Hello Gophers!
 $(function() {
     $('.tip').click(function() {
 	var id = $(this).attr('id');
-	$('#help').text(doc[id]);
+	$('#help').html('<p>' + doc[id] + '</p>');
+	$('a').attr('target', '_blank');
     });
 });
 
 var doc = {
 'pkg':`
-PKG is where we
+Go is designed to enable working in large teams.
+Every piece of code is in a package.
+Other packages can only access exported names, these are names that start with
+a capital letter.
+`,
+'main':`
+<code>main</code> is a special package. This is the package the Go runtime runs
+on startup.
+<br /><br />
+Read <a href="https://golang.org/doc/effective_go.html#package-names">here</a> about how to name your packages.
 `,
 'imp':`
-IMP is here
+You can import packages using the <code>import</code> keyword. Depnding you
+your Go version, packages are either located in the <code>GOPATH</code>
+environment variable or by the go
+<a href="https://github.com/golang/go/wiki/Modules">modules</a>.
 `,
-'run': `
-RUN
+'fmt': `
+<a href="https://golang.org/pkg/fmt/">fmt</a> is a packge for formatting text.
+Once you import a package, you can access public names within it (those
+starting with a capital letter). If a path has a path (e.g.
+<code>net/http</code>) you should use only the last part of the path (e.g.
+<code>http.HandleFunc</code>).
+<br />
+You can change the name of the package by adding a name before the package to
+be imported (e.g. <code>import httplib "net/http"</code>).
+<br /><br />
+Read more about import paths <a
+href="https://golang.org/doc/code.html#ImportPaths">here</a>.
 `,
-
+'func':`
+Use the <code>func</code> keyword to define functions.
+`,
+'mainfn':`
+<code>main.main</code> is a special function that the Go runtime runs on program start. There can be only one <code>main.main</code> function.
+`,
+'pkg-use':`
+To access function from a package, you need to prefix the function with the
+last part of the package name.
+`,
+'println':`
+<code>Println</code> will print it's message and then a new line. There are
+several other print functions in the
+<a href="https://golang.org/pkg/fmt/">fmt</a> package.
+The ones starting with <code>F</code> 
+(e.g. <a href="https://golang.org/pkg/fmt/#Fprintln">Fprintln</a>) will print
+to an <a href="https://golang.org/pkg/io/#Writer">io.Writer</a> and the ones
+ending with <code>f</code> (e.g. <a
+href="https://golang.org/pkg/fmt/#Printf">Printf</a>) support formatted
+printing.
+<br /><br />
+<code>Println</code> is an exported function. Exported functions (and other
+types) start with an upper case.
+`,
+'go':`
+The <a href="https://golang.org/cmd/go/">go</a> tool is used to most common
+tasks in Go - 
+<a href="https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies">building</a>,
+<a href="https://golang.org/cmd/go/#hdr-Test_packages">testing</a>, 
+<a href="https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies">installing dependencies</a> and more. It is
+activated from the command line but many IDEs
+(such as <a href="https://code.visualstudio.com/">VSCode</a>
+and <a href="https://www.jetbrains.com/go/">GoLand</a>) integrate with it.
+`,
+'run':`
+<a href="https://golang.org/cmd/go/#hdr-Compile_and_run_Go_program">go run</a>
+compiles and runs an executable in one command. It allows for fast development
+cycles. There is no official Go
+<a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a> (or interactive prompt), but <code>go run</code> is about as effective.
+`,
+'string': `
+Go strings support unicode and are encoded in <a
+href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> encoding.
+<br /><br />
+Strings in Go are immutable, you can use
+<a href="https://golang.org/pkg/fmt/#Sprintf">fmt.Sprintf</a>,
+<a href="https://golang.org/pkg/bytes/#Buffer">bytes.Buffer</a>,
+<a href="https://golang.org/pkg/strings/#Builder">strings.Builder</a>
+and others to consturct strings.
+`,
+'ext': `
+Go files ends with <code>.go</code> extension. The source code should be 
+<a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> encoded.
+<br /><br />
+Several <code>.go</code> files can be in the same directory and construct the
+same package.
+`,
 };
     </script>
 </html>
