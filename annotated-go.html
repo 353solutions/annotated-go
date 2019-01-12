@@ -35,6 +35,21 @@ code {
 p.help {
     margin-top: 20px;
 }
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  line-height: 40px; /* Vertically center the text there */
+  background-color: silver;
+}
+.right {
+    text-align: right;
+}
+img.mid-footer {
+    height: 20px;
+}
 </style>
     </head>
     <body>
@@ -64,7 +79,7 @@ p.help {
 )
 
 <span class="keyword tip" id="func">func</span> <span class="tip" id="mainfn">main</span>() {
-	<span class="tip" id="pkg-use">fmt</span>.<span class="tip" id="println">Println</span>(<span class="string tip" id="string">"Hello Gophers ☺"</span>)
+	<span class="tip" id="pkg-use">fmt</span>.<span class="tip" id="println">Println</span>(<span class="string tip" id="string">"Hello Gophers ☺"</span>)<span class="tip" id="semicolon"> </span>
 }
 	</code></pre>
 		</div>
@@ -83,6 +98,21 @@ Hello Gophers!
 		</div>
 	    </div>
 	</div>
+	<footer class="footer">
+	    <div class="container">
+		<div class="row">
+		    <div class="col">
+			Created by 
+		    <a target="_blank" href="https://www.353solutions.com/">
+			<img src="https://www.353solutions.com/static/images/logo-dark.png" class="mid-footer"></img>
+		    </a>
+		    </div>
+		    <div class="col right">
+			Licensed under <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+		    </div>
+		</div>
+	    </div>
+	</footer>
     </body>
     <script>
 $(function() {
@@ -126,21 +156,24 @@ environment variable or by the go
 'fmt': `
 <a href="https://golang.org/pkg/fmt/">fmt</a> is a packge for formatting text.
 Once you import a package, you can access public names within it (those
-starting with a capital letter). If a path has a path (e.g.
+starting with a capital letter). If a path is composed of several parts (e.g.
 <code>net/http</code>) you should use only the last part of the path (e.g.
 <code>http.HandleFunc</code>).
 <br />
-You can change the name of the package by adding a name before the package to
+You can rename a package by adding a name before the package to
 be imported (e.g. <code>import httplib "net/http"</code>).
-<br /><br />
+<br />
 Read more about import paths <a
 href="https://golang.org/doc/code.html#ImportPaths">here</a>.
 `,
 'func':`
-Use the <code>func</code> keyword to define functions.
+Use the <code>func</code> keyword to define functions. Functions in Go can have
+several arguments and return sevarl argument.<br/>
+Usually the last argument returned by a function is an error code.<br/>
+Read more about functions <a href="https://golang.org/doc/effective_go.html#functions">here</a>.
 `,
 'mainfn':`
-<code>main.main</code> is a special function that the Go runtime runs on program start. There can be only one <code>main.main</code> function.
+<code>main.main</code> is a special function that the Go runtime runs on program start. There can be only one <code>main.main</code> function in a Go program.
 `,
 'pkg-use':`
 To access function from a package, you need to prefix the function with the
@@ -158,17 +191,17 @@ href="https://golang.org/pkg/fmt/#Printf">Printf</a>) support formatted
 printing.
 <br /><br />
 <code>Println</code> is an exported function. Exported functions (and other
-types) start with an upper case.
+names) start with an upper case.
 `,
 'go':`
 The <a href="https://golang.org/cmd/go/">go</a> tool is used to most common
 tasks in Go - 
 <a href="https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies">building</a>,
 <a href="https://golang.org/cmd/go/#hdr-Test_packages">testing</a>, 
-<a href="https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies">installing dependencies</a> and more. It is
-activated from the command line but many IDEs
+<a href="https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies">installing dependencies</a> and more. 
+The <code>go</code> command is usually used from the command line but many IDEs
 (such as <a href="https://code.visualstudio.com/">VSCode</a>
-and <a href="https://www.jetbrains.com/go/">GoLand</a>) integrate with it.
+and <a href="https://www.jetbrains.com/go/">GoLand</a>) integrate it.
 `,
 'run':`
 <a href="https://golang.org/cmd/go/#hdr-Compile_and_run_Go_program">go run</a>
@@ -184,14 +217,21 @@ Strings in Go are immutable, you can use
 <a href="https://golang.org/pkg/fmt/#Sprintf">fmt.Sprintf</a>,
 <a href="https://golang.org/pkg/bytes/#Buffer">bytes.Buffer</a>,
 <a href="https://golang.org/pkg/strings/#Builder">strings.Builder</a>
-and others to consturct strings.
+and others to construct strings. <br />
+If you need advanced unicode support, check out the <a
+href="https://golang.org/pkg/unicode/">unicode</a> package.
 `,
 'ext': `
 Go files ends with <code>.go</code> extension. The source code should be 
 <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> encoded.
 <br /><br />
-Several <code>.go</code> files can be in the same directory and construct the
-same package.
+Several <code>.go</code> files can be in the same directory and construct a
+package.
+`,
+'semicolon': `
+Go statements don't need to end with semicolon (<code>;</code>). You <i>can</i>
+add them and the program will compile, but idiomatic Go code don't have
+semicolons in it.
 `,
 };
 var initial_help = `
