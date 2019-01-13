@@ -32,8 +32,9 @@ code {
 .marked {
     background: silver;
 }
-p.help {
+#help {
     margin-top: 20px;
+    overflow: auto;
 }
 .footer {
   position: absolute;
@@ -50,6 +51,9 @@ p.help {
 img.mid-footer {
     height: 20px;
 }
+img.gopher {
+    height: 15px;
+}
 </style>
     </head>
     <body>
@@ -62,6 +66,7 @@ img.mid-footer {
 		    <br />
 		    <i id="help-btn" class="far fa-question-circle"></i> |
 		    <input type="checkbox" id="highlight"></input> Highlight all
+		    | <a target="_blank" href="https://golang.org"><img class="gopher" src="https://golang.org/favicon.ico"></img></a>
 		</div>
 	    </div>
 	    <div class="row">
@@ -71,7 +76,7 @@ img.mid-footer {
 	    </div>
 	    <div class="row">
 		<div class="col">
-	<pre><code class="font">
+	<pre id="code"><code class="font">
 <span class="keyword tip" id="pkg">package</span> <span class="tip" id="main">main</span>
 
 <span class="keyword tip" id="imp">import</span> (
@@ -116,6 +121,9 @@ Hello Gophers!
     </body>
     <script>
 $(function() {
+    var h = $('#code').height();
+    $('#help').html(all_help);
+    $('#help').css('height', h);
     $('.tip').click(function() {
 	var id = $(this).attr('id');
 	$('#help').html('<p>' + doc[id] + '</p>');
@@ -131,7 +139,6 @@ $(function() {
 	    $('.tip').removeClass('marked');
 	}
     });
-    $('#help-btn').click();
 });
 
 var doc = {
@@ -240,6 +247,136 @@ This is an annoated
 <a target="_blank" href="https://golang.org/">Go</a> program.  Hover around the
 code, then click on highlighted words. You can use the checkbox on the top
 right to highlight all.
+`;
+
+
+var all_help = `
+
+<div class="help-item" id="pkg">
+Go is designed to enable working in large teams.
+Every piece of code is in a package.
+Other packages can only access exported names, these are names that start with
+a capital letter.
+</div>
+<hr />
+
+<div class="help-item" id="main">
+<code>main</code> is a special package. This is the package the Go runtime runs
+on startup.
+<br /><br />
+Read <a href="https://golang.org/doc/effective_go.html#package-names">here</a> about how to name your packages.
+</div>
+<hr />
+
+<div class="help-item" id="imp">
+You can import packages using the <code>import</code> keyword. Depnding you
+your Go version, packages are either located in the <code>GOPATH</code>
+environment variable or by the go
+<a href="https://github.com/golang/go/wiki/Modules">modules</a>.
+</div>
+<hr />
+
+<div class="help-item" id="fmt">
+<a href="https://golang.org/pkg/fmt/">fmt</a> is a packge for formatting text.
+Once you import a package, you can access public names within it (those
+starting with a capital letter). If a path is composed of several parts (e.g.
+<code>net/http</code>) you should use only the last part of the path (e.g.
+<code>http.HandleFunc</code>).
+<br />
+You can rename a package by adding a name before the package to
+be imported (e.g. <code>import httplib "net/http"</code>).
+<br />
+Read more about import paths <a
+href="https://golang.org/doc/code.html#ImportPaths">here</a>.
+</div>
+<hr />
+
+<div class="help-item" id="func">
+Use the <code>func</code> keyword to define functions. Functions in Go can have
+several arguments and return sevarl argument.<br/>
+Usually the last argument returned by a function is an error code.<br/>
+Read more about functions <a href="https://golang.org/doc/effective_go.html#functions">here</a>.
+</div>
+<hr />
+
+<div class="help-item" id="mainfn">
+<code>main.main</code> is a special function that the Go runtime runs on program start. There can be only one <code>main.main</code> function in a Go program.
+</div>
+<hr />
+
+<div class="help-item" id="pkg-use">
+To access function from a package, you need to prefix the function with the
+last part of the package name.
+</div>
+<hr />
+
+<div class="help-item" id="println">
+<code>Println</code> will print it's message and then a new line. There are
+several other print functions in the
+<a href="https://golang.org/pkg/fmt/">fmt</a> package.
+The ones starting with <code>F</code> 
+(e.g. <a href="https://golang.org/pkg/fmt/#Fprintln">Fprintln</a>) will print
+to an <a href="https://golang.org/pkg/io/#Writer">io.Writer</a> and the ones
+ending with <code>f</code> (e.g. <a
+href="https://golang.org/pkg/fmt/#Printf">Printf</a>) support formatted
+printing.
+<br /><br />
+<code>Println</code> is an exported function. Exported functions (and other
+names) start with an upper case.
+</div>
+<hr />
+
+<div class="help-item" id="go">
+The <a href="https://golang.org/cmd/go/">go</a> tool is used to most common
+tasks in Go - 
+<a href="https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies">building</a>,
+<a href="https://golang.org/cmd/go/#hdr-Test_packages">testing</a>, 
+<a href="https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies">installing dependencies</a> and more. 
+The <code>go</code> command is usually used from the command line but many IDEs
+(such as <a href="https://code.visualstudio.com/">VSCode</a>
+and <a href="https://www.jetbrains.com/go/">GoLand</a>) integrate it.
+</div>
+<hr />
+
+<div class="help-item" id="run">
+<a href="https://golang.org/cmd/go/#hdr-Compile_and_run_Go_program">go run</a>
+compiles and runs an executable in one command. It allows for fast development
+cycles. There is no official Go
+<a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a> (or interactive prompt), but <code>go run</code> is about as effective.
+</div>
+<hr />
+
+<div class="help-item" id="string">
+Go strings support unicode and are encoded in <a
+href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> encoding.
+<br /><br />
+Strings in Go are immutable, you can use
+<a href="https://golang.org/pkg/fmt/#Sprintf">fmt.Sprintf</a>,
+<a href="https://golang.org/pkg/bytes/#Buffer">bytes.Buffer</a>,
+<a href="https://golang.org/pkg/strings/#Builder">strings.Builder</a>
+and others to construct strings. <br />
+If you need advanced unicode support, check out the <a
+href="https://golang.org/pkg/unicode/">unicode</a> package.
+</div>
+<hr />
+
+<div class="help-item" id="ext">
+Go files ends with <code>.go</code> extension. The source code should be 
+<a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> encoded.
+<br /><br />
+Several <code>.go</code> files can be in the same directory and construct a
+package.
+</div>
+<hr />
+
+<div class="help-item" id="semicolon">
+Go statements don't need to end with semicolon (<code>;</code>). You <i>can</i>
+add them and the program will compile, but idiomatic Go code don't have
+semicolons in it.
+</div>
+<hr />
+
+
 `;
     </script>
 </html>
